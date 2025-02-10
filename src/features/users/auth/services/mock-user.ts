@@ -1,8 +1,14 @@
-import { User } from '../lib/types';
+import { UserDTO } from '../lib/types';
 
-export const user: User = {
+export const user: UserDTO = {
   id: 'testId',
   authId: 'testAuthId',
-  login: 'testLogin',
+  firstName: 'test',
+  lastName: 'user',
+  status: 'Active',
+  activeTill: new Date(),
+  wasOnline: new Date(),
   email: 'testEmail@gmail.com',
+  role: 'Admin',
+  expiration: 60 * 60 * 24 * 7,
 };

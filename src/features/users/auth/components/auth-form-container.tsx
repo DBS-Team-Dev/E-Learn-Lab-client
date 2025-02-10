@@ -6,9 +6,9 @@ import { Button } from '@/shared/components/button';
 import { Input } from '@/shared/components/input';
 import { AuthRepository } from '../services';
 import { useAppDispatch, useAppSelector } from '@/app/_redux/store';
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const LoginSchema = v.object({
   email: v.pipe(
@@ -22,6 +22,7 @@ const LoginSchema = v.object({
 type LoginData = v.InferOutput<typeof LoginSchema>;
 
 export default function AuthFormContainer() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [inputData, { Form, Field }] = useForm<LoginData>({
     validate: valiForm(LoginSchema),
   });
@@ -31,59 +32,59 @@ export default function AuthFormContainer() {
   const authState = useAppSelector((state) => state.auth);
 
   const handleSubmit = (values: LoginData) => {
-    return dispatch(AuthRepository.loginUser({ login: values.email, password: values.password }));
+    void values;
+    return dispatch(AuthRepository.loginUser());
   };
 
   useEffect(() => {
-    if (authState.isLoggedIn) {
+    if (authState.currentUser) {
       router.push('/home');
     }
-  }, [authState.isLoggedIn, router]);
+  }, [authState.currentUser, router]);
 
   return (
-    <div className='flex min-h-screen items-center justify-center bg-gradient-to-r from-indigo-100 to-slate-600'>
-      <div className='m-12 w-full max-w-md rounded-lg bg-white p-8 shadow-lg'>
-        <h2 className='mx-4 mb-12 text-center text-2xl font-bold'>Вхід в особистий кабінет</h2>
-        <Form onSubmit={(values) => handleSubmit(values)}>
-          <div className='mb-6'>
-            <label className='mb-2 block text-xs font-bold text-gray-700' htmlFor='email'>
-              E-mail пошта
-            </label>
-            <Field name='email'>
-              {(field, props) => (
-                <>
-                  <Input {...props} type='email' required />
-                  {field.error && <div>{field.error}</div>}
-                </>
-              )}
-            </Field>
-          </div>
-          <div className='mb-6'>
-            <label className='mb-2 block text-xs font-bold text-gray-700' htmlFor='password'>
-              Пароль
-            </label>
-            <Field name='password'>
-              {(field, props) => (
-                <>
-                  <Input {...props} type='password' required />
-                  {field.error && <div>{field.error}</div>}
-                </>
-              )}
-            </Field>
-          </div>
-          <div className='mb-4 flex justify-end'>
-            <h6 className='text-xs'>
-              Забули пароль?{' '}
-              <Link className='text-xs text-blue-700' href={'/'}>
-                Відновити пароль
-              </Link>
-            </h6>
-          </div>
-          <Button type='submit' width='full'>
+    <div className='mb-12 w-full max-w-md rounded-lg px-6'>
+      <Form onSubmit={(values) => handleSubmit(values)}>
+        <div className='mb-6'>
+          <label className='mb-2 block text-xs font-bold text-gray-700' htmlFor='email'>
+            Імейл
+          </label>
+          <Field name='email'>
+            {(field, props) => (
+              <>
+                <Input {...props} type='email' required placeholder='Введіть імейл' />
+                <div>{field.error}</div>
+              </>
+            )}
+          </Field>
+        </div>
+        <div className='mb-6'>
+          <label className='mb-2 block text-xs font-bold text-gray-700' htmlFor='password'>
+            Пароль
+          </label>
+          <Field name='password'>
+            {(field, props) => (
+              <>
+                <Input {...props} type='password' required placeholder='Введіть пароль' />
+                <div>{field.error}</div>
+              </>
+            )}
+          </Field>
+        </div>
+        <div className='xss:justify-center mx-5 mb-4 flex justify-end'>
+          <h6 className='xss:text-center text-xs xs:text-center'>
+            Забули пароль?{' '}
+            <Link className='text-xs text-text-color-secondary' href={'/'} replace={true}>
+              Відновити пароль
+            </Link>
+          </h6>
+        </div>
+        <div className='mt-16 flex justify-center'>
+          <Button type='submit' variant='default'>
             Увійти
           </Button>
-        </Form>
-      </div>
+        </div>
+      </Form>
     </div>
   );
 }

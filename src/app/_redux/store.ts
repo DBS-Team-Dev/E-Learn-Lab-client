@@ -1,9 +1,10 @@
 import { authReducer } from '@/features/users/auth/services';
+import { userReducer } from '@/features/users/user/services';
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux';
 
 export const store = configureStore({
-  reducer: { auth: authReducer },
+  reducer: { auth: authReducer, users: userReducer },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });
 

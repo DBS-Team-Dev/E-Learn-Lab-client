@@ -1,12 +1,20 @@
-export type User = {
+export type RoleOptions = 'Student' | 'Admin';
+
+export interface UserDTO {
   id: string;
   authId: string;
-  login: string;
+  firstName: string;
+  lastName: string;
+  status: string;
   email: string;
-};
+  role: RoleOptions;
+  activeTill: Date;
+  wasOnline: Date;
+  expiration: number;
+}
 
-export type AuthState = {
+export interface AuthState {
   loading: boolean;
   isLoggedIn: boolean;
-  currentUser: User | null;
-};
+  currentUser: UserDTO | null;
+}
