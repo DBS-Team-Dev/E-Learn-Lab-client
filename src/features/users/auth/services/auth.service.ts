@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthRepository } from './auth.repository';
-import { AuthState } from '../lib';
+import { AuthState, authUtils } from '../lib';
 
 const initialState: AuthState = {
   loading: false,
-  isLoggedIn: false,
   currentUser: null,
+  isAdmin: false,
 };
 
 export const authSlice = createSlice({
@@ -21,7 +21,8 @@ export const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, { payload }) => {
         state.loading = false;
         state.currentUser = payload;
-        state.isLoggedIn = true;
+        const isAdmin = authUtils.isAdmin(payload.role);
+        state.isAdmin = isAdmin;
       })
       .addCase(loginUser.rejected, (state) => {
         state.loading = false;

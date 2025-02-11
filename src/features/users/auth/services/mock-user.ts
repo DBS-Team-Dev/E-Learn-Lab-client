@@ -6,9 +6,9 @@ export const user: UserDTO = {
   firstName: 'test',
   lastName: 'user',
   status: 'Active',
-  activeTill: new Date(),
-  wasOnline: new Date(),
+  activeTill: '11/02/2026',
+  wasOnline: '11/02/2025',
   email: 'testEmail@gmail.com',
-  role: 'Admin',
+  role: 'Student',
   expiration: 60 * 60 * 24 * 7,
 };

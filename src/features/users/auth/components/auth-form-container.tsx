@@ -1,14 +1,18 @@
 'use client';
 
-import { useForm, valiForm } from '@modular-forms/react';
-import * as v from 'valibot';
-import { Button } from '@/shared/components/button';
-import { Input } from '@/shared/components/input';
-import { AuthRepository } from '../services';
-import { useAppDispatch, useAppSelector } from '@/app/_redux/store';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+
+import { useForm, valiForm } from '@modular-forms/react';
+import { useAppDispatch, useAppSelector } from '@/app/_redux/store';
+
+import { AuthRepository } from '../services';
+
+import { Input } from '@/shared/components/input';
+import { Button } from '@/shared/components/button';
+
+import * as v from 'valibot';
 
 const LoginSchema = v.object({
   email: v.pipe(

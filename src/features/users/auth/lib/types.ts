@@ -8,13 +8,13 @@ export interface UserDTO {
   status: string;
   email: string;
   role: RoleOptions;
-  activeTill: Date;
-  wasOnline: Date;
+  activeTill: string;
+  wasOnline: string;
   expiration: number;
 }
 
 export interface AuthState {
   loading: boolean;
-  isLoggedIn: boolean;
+  isAdmin: boolean;
   currentUser: UserDTO | null;
 }

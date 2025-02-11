@@ -1,36 +1,27 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
-import { UserDTO } from './features/users/auth/lib';
+import { UserDTO, authUtils } from './features/users/auth/lib';
 
-const protectedRoutes = ['/home', '/profile', '/courses'];
-const publicRoutes = ['/'];
-
-function safeJsonParse(json: string): UserDTO | null {
-  try {
-    return JSON.parse(json) as UserDTO;
-  } catch (e) {
-    console.error('Failed to parse JSON:', e);
-    return null;
-  }
-}
+const protectedRoutes = ['/home', '/profile', '/courses', '/lectures', '/users'];
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const isProtectedRoute = protectedRoutes.includes(path);
-  const isPublicRoute = publicRoutes.includes(path);
 
   const cookie = (await cookies()).get('user')?.value;
-  const user: UserDTO | null = cookie ? safeJsonParse(cookie) : null;
+  const user: UserDTO | null = cookie ? authUtils.safeParseAuthCookie(cookie) : null;
 
   if (isProtectedRoute && !user?.id) {
     return NextResponse.redirect(new URL('/', request.nextUrl));
   }
 
-  if (isPublicRoute && user?.id) {
-    return NextResponse.redirect(new URL('/home', request.nextUrl));
+  if (path === '/home' && user?.id && user.role === 'Admin') {
+    return NextResponse.redirect(new URL('/users', request.nextUrl));
   }
 
-  return NextResponse.next();
+  if (path === '/users' && user?.id && user.role === 'Student') {
+    return NextResponse.redirect(new URL('/home', request.nextUrl));
+  }
 }
 
 export const config = {

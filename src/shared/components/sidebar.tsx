@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 'use client';
@@ -22,7 +23,7 @@ import {
 } from '@/shared/components/tooltip';
 
 import { cn } from '../lib/utils';
-import { navigationItems } from '../lib/navigation';
+import { Navigation } from '../lib/navigation';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar:state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -722,15 +723,17 @@ const SidebarMenuSubButton = React.forwardRef<
 });
 SidebarMenuSubButton.displayName = 'SidebarMenuSubButton';
 
-export function AppSidebar() {
+const AppSidebar = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<'div'> & { navItems: Navigation[] }
+>(({ navItems }, _) => {
   return (
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Модулі</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {navigationItems.map((item) => (
+              {navItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <a href={item.url}>
@@ -746,9 +749,11 @@ export function AppSidebar() {
       </SidebarContent>
     </Sidebar>
   );
-}
+});
+AppSidebar.displayName = 'AppSidebar';
 
 export {
+  AppSidebar,
   Sidebar,
   SidebarContent,
   SidebarFooter,
