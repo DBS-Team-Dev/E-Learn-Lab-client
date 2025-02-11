@@ -2,8 +2,8 @@ import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 
-import { authReducer } from '@/features/users/auth/services';
-import { userReducer } from '@/features/users/user/services';
+import { authReducer } from '@/features/auth/services';
+import { userReducer } from '@/features/users/services';
 import createWebStorage from 'redux-persist/es/storage/createWebStorage';
 
 const isClient = typeof window !== 'undefined';

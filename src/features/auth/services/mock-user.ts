@@ -9,6 +9,6 @@ export const user: UserDTO = {
   activeTill: '11/02/2026',
   wasOnline: '11/02/2025',
   email: 'testEmail@gmail.com',
-  role: 'Student',
+  role: 'Admin',
   expiration: 60 * 60 * 24 * 7,
 };

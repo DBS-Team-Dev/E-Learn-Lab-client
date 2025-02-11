@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
-import { UserDTO, authUtils } from './features/users/auth/lib';
+import { UserDTO, authUtils } from './features/auth/lib';
 
 const protectedRoutes = ['/home', '/profile', '/courses', '/lectures', '/users'];
 

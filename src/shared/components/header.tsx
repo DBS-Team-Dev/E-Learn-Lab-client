@@ -1,10 +1,6 @@
 import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 
 import { SidebarTrigger } from './sidebar';
-
-import Logo from '@/../public/logo.png';
 
 export default function Header() {
   return (
@@ -12,9 +8,6 @@ export default function Header() {
       <nav>
         <div className='mx-auto flex w-full flex-wrap items-center justify-between p-4'>
           <SidebarTrigger />
-          <Link href={'/'} className='mx-auto w-1/12'>
-            <Image src={Logo} width={0} height={0} alt='логотип' />
-          </Link>
           <div>Logo</div>
         </div>
       </nav>

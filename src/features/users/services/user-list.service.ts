@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { UserRepository } from './user.repository';
+import { UserRepository } from './user-list.repository';
 import { UserState } from '../lib';
 
 const initialState: UserState = {

@@ -10,11 +10,13 @@ import { PanelLeft } from 'lucide-react';
 
 import { useIsMobile } from '@/shared/hooks/use-mobile';
 
+import Image from 'next/image';
 import { Button } from '@/shared/components/button';
 import { Input } from '@/shared/components/input';
 import { Separator } from '@/shared/components/separator';
 import { Sheet, SheetContent } from '@/shared/components/sheet';
 import { Skeleton } from '@/shared/components/skeleton';
+import Logo from '@/../public/logo.png';
 import {
   Tooltip,
   TooltipContent,
@@ -24,6 +26,7 @@ import {
 
 import { cn } from '../lib/utils';
 import { Navigation } from '../lib/navigation';
+import Link from 'next/link';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar:state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -31,6 +34,40 @@ const SIDEBAR_WIDTH = '16rem';
 const SIDEBAR_WIDTH_MOBILE = '18rem';
 const SIDEBAR_WIDTH_ICON = '3rem';
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
+
+const AppSidebar = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<'div'> & { navItems: Navigation[] }
+>(({ navItems }, _) => {
+  return (
+    <Sidebar>
+      <SidebarHeader className='bg-background-color-primary'>
+        <Link href={'/'} className='mr-auto w-6/12'>
+          <Image src={Logo} width={0} height={0} alt='логотип' />
+        </Link>
+      </SidebarHeader>
+      <SidebarContent className='bg-background-color-primary'>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {navItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <a href={item.url} className='font-bold text-text-color-primary'>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+  );
+});
+AppSidebar.displayName = 'AppSidebar';
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type SidebarContext = {
@@ -186,7 +223,7 @@ const Sidebar = React.forwardRef<
       return (
         <div
           className={cn(
-            'flex h-full w-[--sidebar-width] flex-col bg-sidebar text-sidebar-foreground',
+            'flex h-full w-[--sidebar-width] flex-col bg-background-color-primary text-sidebar-foreground',
             className,
           )}
           ref={ref}
@@ -203,7 +240,7 @@ const Sidebar = React.forwardRef<
           <SheetContent
             data-sidebar='sidebar'
             data-mobile='true'
-            className='w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden'
+            className='w-[--sidebar-width] bg-background-color-primary p-0 text-sidebar-foreground [&>button]:hidden'
             style={
               {
                 '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
@@ -722,35 +759,6 @@ const SidebarMenuSubButton = React.forwardRef<
   );
 });
 SidebarMenuSubButton.displayName = 'SidebarMenuSubButton';
-
-const AppSidebar = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<'div'> & { navItems: Navigation[] }
->(({ navItems }, _) => {
-  return (
-    <Sidebar>
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {navItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-    </Sidebar>
-  );
-});
-AppSidebar.displayName = 'AppSidebar';
 
 export {
   AppSidebar,

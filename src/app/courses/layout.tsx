@@ -16,7 +16,7 @@ export default function CoursesPageLayout({
   return (
     <SidebarUiProvider>
       <AppSidebar navItems={navigationItems} />
-      <div className='flex w-full flex-col'>
+      <div className='flex w-full flex-col bg-background-color-primary'>
         <Header />
         <main>{children}</main>
       </div>
