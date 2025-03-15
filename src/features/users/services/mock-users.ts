@@ -1,0 +1,40 @@
+import { UserDTO } from '../../auth/lib';
+
+export const users: UserDTO[] = [
+  {
+    id: 'testId',
+    authId: 'testAuthId',
+    firstName: 'test',
+    lastName: 'user',
+    status: 'Active',
+    activeTill: new Date(),
+    wasOnline: new Date(),
+    email: 'testEmail@gmail.com',
+    role: 'Admin',
+    expiration: 60 * 60 * 24 * 7,
+  },
+  {
+    id: 'testId1',
+    authId: 'testAuthId1',
+    firstName: 'test',
+    lastName: 'user 1',
+    status: 'Disabled',
+    activeTill: new Date(),
+    wasOnline: new Date(),
+    email: 'testEmail1@gmail.com',
+    role: 'Student',
+    expiration: 60 * 60 * 24 * 7,
+  },
+  {
+    id: 'testId2',
+    authId: 'testAuthId2',
+    firstName: 'test',
+    lastName: 'user 2',
+    status: 'Active',
+    activeTill: new Date(),
+    wasOnline: new Date(),
+    email: 'testEmail@gmail.com',
+    role: 'Student',
+    expiration: 60 * 60 * 24 * 7,
+  },
+];
